@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI-GenBench: A New Ongoing Benchmark for AI-Generated Image Detection</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+  <style>
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: #fafafa;
+      color: #222;
+    }
+
+    .publication-title {
+      color: #222;
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    thead th {
+      background: linear-gradient(180deg, #e9f3ff 0%, #dbe9fb 100%);
+      color: #083b66;
+      cursor: pointer;
+      font-weight: 600;
+      white-space: nowrap; 
+      user-select: none;
+      text-align: left;
+    }
+
+    th:hover {
+      background-color: #cfe1fa;
+    }
+
+    td, th {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e9eef6;
+    }
+
+    td.center {
+      text-align: center !important;
+    }
+
+    td.right {
+      text-align: right !important;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #fbfdff;
+    }
+
+    .sort-indicator {
+      display: inline-block;
+      margin-left: 6px;
+      font-size: 0.8rem;
+      color: #4a4a4a;
+    }
+
+    .table-container {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
+
+    .button.is-dark.is-rounded {
+      background-color: #083b66;
+      border: none;
+    }
+
+    .button.is-dark.is-rounded:hover {
+      background-color: #0a4a80;
+    }
+
+    .section-group {
+    text-align: center !important;
+    vertical-align: middle;
+    font-weight: 600;
+    }
+
+    .icon-link {
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+    margin: 0 8px;
+    fill: currentColor; 
+    }
+    .icon-container a {
+      color: #333;
+      text-decoration: none;
+    }
+    .icon-container a:hover {
+      color: #0077cc;
+    }
+
+    .responsive-figure {
+      display: inline-block;
+      width: 80%;
+    }
+    @media (max-width: 768px) {
+      .responsive-figure {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title is-1 publication-title">AI-GenBench:</h1>
+      <h2 class="title is-3 publication-title"> A New Ongoing Benchmark for AI-Generated Image Detection</h2>
+
+      <p class="is-size-5">
+        Lorenzo Pellegrini<sup>1</sup>, Davide Cozzolino<sup>2</sup>, Serafino Pandolfini<sup>1</sup>, Davide Maltoni<sup>1</sup>,
+        <br>
+        Matteo Ferrara<sup>1</sup>, Luisa Verdoliva<sup>2</sup>, Marco Prati<sup>3</sup>, Marco Ramilli<sup>3</sup>
+        <br>
+        <br>
+        <a href="https://miatbiolab.csr.unibo.it/"><sup>1</sup> MI@BioLab - Department of Computer Science and Engineering, University of Bologna, Cesena, Italy</a>
+        <br>
+        <a href="https://www.grip.unina.it/home"><sup>2</sup> GRIP -  Department of Electrical Engineering and Information Technologies, University of Naples Federico II, Naples, Italy</a>
+        <br>
+        <a href="https://identifai.net/"><sup>3</sup> IdentifAI, Italy</a>
+        <br>
+        <br>
+        Presented at Verimedia workshop, IJCNN 2025
+      </p>
+
+      <br>
+      <div class="buttons is-centered">
+        <a href="https://arxiv.org/abs/2504.20865" target="_blank" class="button is-dark is-rounded is-small">
+          <span class="icon"><i class="ai ai-arxiv"></i></span>
+          <span>Paper</span>
+        </a>
+        <a href="https://github.com/MI-BioLab/AI-GenBench" target="_blank" class="button is-dark is-rounded is-small">
+          <span class="icon"><i class="fab fa-github"></i></span>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+        <figure class="image is-4by2 responsive-figure"">
+          <img src="./images/ai_gen_bench_teaser.jpg" alt="Immagine illustrativa">
+        </figure>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            The rapid advancement of generative AI has revolutionized image creation, enabling high-quality synthesis from text
+            prompts while raising critical challenges for media authenticity.
+            We present AI-GenBench, a novel benchmark designed to address
+            the urgent need for robust detection of AI-generated images
+            in real-world scenarios. Unlike existing solutions that evaluate
+            models on static datasets, AI-GenBench introduces a temporal
+            evaluation framework where detection methods are incrementally
+            trained on synthetic images, historically ordered by their generative models, to test their ability to generalize to new generative
+            models, such as the transition from GANs to diffusion models.
+            Our benchmark focuses on high-quality, diverse visual content
+            and overcomes key limitations of current approaches, including arbitrary dataset splits, unfair comparisons, and excessive
+            computational demands. AI-GenBench provides a comprehensive
+            dataset, a standardized evaluation protocol, and accessible tools
+            for both researchers and non-experts (e.g., journalists, factcheckers), ensuring reproducibility while maintaining practical
+            training requirements. By establishing clear evaluation rules and
+            controlled augmentation strategies, AI-GenBench enables meaningful comparison of detection methods and scalable solutions.
+            Code and data are publicly available to ensure reproducibility
+            and to support the development of robust forensic detectors to
+            keep pace with the rise of new synthetic generators.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Framework</h2>
+        <div class="content has-text-justified">
+          <p>
+            Unlike traditional approaches that evaluate models on static datasets, AI-GenBench introduces a temporal evaluation framework for AI-generated image detection. In this setting, detection models are incrementally trained on synthetic images ordered by the historical release of their generative models. This setup tests how well detectors can generalize to new generation techniques, such as the transition from GANs to diffusion models.
+            <br>
+            The goal of AI-GenBench is to provide a benchmark for assessing the robustness of detection models across both past and future image generation methods. It includes training and evaluation datasets covering a wide range of image generators released between 2017 and 2024, spanning from early GANs to the latest diffusion-based models.
+            The benchmark also offers a PyTorch Lightning–based framework for training and evaluating detection models, publicly released and maintained on <a href="https://github.com/MI-BioLab/AI-GenBench">GitHub</a>.
+          </p>
+        </div>
+        <figure class="image" style="display:inline-block; width:100%;">
+                <img src="./images/generator.png" alt="Geneators inclueded in the framework">
+              </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="leaderboard">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3 has-text-centered">Leaderboard</h2>
+        <div class="content has-text-justified">
+          <p>
+            In this leaderboard we will include the evaluation results on the AI-GenBench benchmark. To submit a candidate algorithm for evaluation please contact us! The only requirement is that both:
+            <ul>
+            <li>the method codebase</li>
+            <li>a report or paper describing the method must be publicly available</li>
+            </ul>
+            Please note that you may freely use the dataset to train and evaluate your model without following the sliding-windows benchmark protocol. However, only methods that follow the benchmark protocol will be included in the leaderboard.
+            We here report the Area Under the ROC Curve (AUROC) of the methods that have been evaluated on the benchmark so far.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div>
+      <div>
+        <div class="table-container">
+          <table id="leaderboard-table" class="table is-fullwidth is-hoverable">
+            <thead>
+              <!-- Riga superiore: intestazioni raggruppate -->
+              <tr>
+                <th rowspan="2" data-index="0">Model Name <span class="sort-indicator"></span></th>
+                <th rowspan="2" data-index="1">Author / Team <span class="sort-indicator"></span></th>
+                <th rowspan="2" data-index="2">Submission Date <span class="sort-indicator"></span></th>
+                <th rowspan="2" data-index="3"># Parameters <span class="sort-indicator"></span></th>
+                <th colspan="3" class="section-group">AUROC</th>
+                <th rowspan="2" data-index="7">References<span class="sort-indicator"></span></th>
+              </tr>
+              <!-- Riga inferiore: metriche -->
+              <tr>
+                <th data-index="4">Past Period<span class="sort-indicator"></span></th>
+                <th data-index="5">Next Period<span class="sort-indicator"></span></th>
+                <th data-index="6">Whole Period<span class="sort-indicator"></span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ViT-L/14 DINOv2</td>
+                <td class="center">Baseline from<br>paper authors</td>
+                <td class="center">Jul/2025</td>
+                <td class="right">304M</td>
+                <td class="right">99.1%</td>
+                <td class="right">94.2%</td>
+                <td class="right">97.9%</td>
+                <td>
+                  <div class="icon-container">
+                    <a href="https://arxiv.org/abs/2412.16334" target="_blank" rel="noopener noreferrer">
+                      <img src="./images/paper.png" class="icon-link" alt="Paper">
+                    </a>
+                    <a href="https://github.com/facebookresearch/dinov2" target="_blank" rel="noopener noreferrer">
+                      <img src="./images/github.png" class="icon-link" alt="Github">
+                    </a>
+                  </div>              
+                </td>
+              </tr>
+              <tr>
+                <td>ViT-L/14 CLIP</td>
+                <td class="center">Baseline from<br>paper authors</td>
+                <td class="center">Jul/2025</td>
+                <td class="right">304M</td>
+                <td class="right">98.1%</td>
+                <td class="right">92.0%</td>
+                <td class="right">97.0%</td>
+                <td>
+                  <div class="icon-container">
+                    <a href="https://huggingface.co/laion/CLIP-ViT-L-14-CommonPool.XL-s13B-b90K" target="_blank" rel="noopener noreferrer">
+                      <img src="./images/model.png" class="icon-link" alt="Model">
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>ResNet-50 CLIP</td>
+                <td class="center">Baseline from<br>paper authors</td>
+                <td class="center">Jul/2025</td>
+                <td class="right">38M</td>
+                <td class="right">89.9%</td>
+                <td class="right">81.8%</td>
+                <td class="right">88.9%</td>
+                <td>
+                  <div class="icon-container">
+                    <a href="https://arxiv.org/abs/2103.00020" target="_blank" rel="noopener noreferrer">
+                      <img src="./images/paper.png" class="icon-link" alt="Paper">
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <p>If you use this benchmark and/or code in your research, please cite our paper:</p>
+    <pre><code>
+@misc{pellegrini2025aigenbenchnewongoingbenchmark,
+      title={AI-GenBench: A New Ongoing Benchmark for AI-Generated Image Detection}, 
+      author={Lorenzo Pellegrini and Davide Cozzolino and Serafino Pandolfini and Davide Maltoni and Matteo Ferrara and Luisa Verdoliva and Marco Prati and Marco Ramilli},
+      year={2025},
+      eprint={2504.20865},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2504.20865}, 
+}
+    </code></pre>
+  </div>
+</section>
+
+<script>
+function parseDate(str) {
+  if (!str) return NaN;
+  str = str.trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(str)) return new Date(str).getTime();
+  if (/^\d{2}[\/\-]\d{2}[\/\-]\d{4}$/.test(str)) {
+    const p = str.split(/[\/\-]/);
+    return new Date(parseInt(p[2]), parseInt(p[1]) - 1, parseInt(p[0])).getTime();
+  }
+  return NaN;
+}
+
+function parseNumber(str) {
+  const s = str.replace(/\s/g, '').toUpperCase();
+  if (s.endsWith('M')) return parseFloat(s) * 1e6;
+  if (s.endsWith('K')) return parseFloat(s) * 1e3;
+  return parseFloat(s);
+}
+
+function sortTableByIndex(index, th) {
+  const table = document.getElementById("leaderboard-table");
+  const tbody = table.tBodies[0];
+  const rows = Array.from(tbody.querySelectorAll("tr"));
+
+  // direzione
+  const currentDir = th.dataset.sortDir === "asc" ? "desc" : "asc";
+  th.dataset.sortDir = currentDir;
+
+  // reset indicatori
+  document.querySelectorAll(".sort-indicator").forEach(el => el.textContent = "");
+  th.querySelector(".sort-indicator").textContent = currentDir === "asc" ? "▲" : "▼";
+
+  rows.sort((a, b) => {
+    const A = a.cells[index].innerText.trim();
+    const B = b.cells[index].innerText.trim();
+
+    const dateA = parseDate(A);
+    const dateB = parseDate(B);
+    if (!isNaN(dateA) && !isNaN(dateB))
+      return currentDir === "asc" ? dateA - dateB : dateB - dateA;
+
+    const numA = parseNumber(A);
+    const numB = parseNumber(B);
+    if (!isNaN(numA) && !isNaN(numB))
+      return currentDir === "asc" ? numA - numB : numB - numA;
+
+    return currentDir === "asc" ? A.localeCompare(B) : B.localeCompare(A);
+  });
+
+  rows.forEach(r => tbody.appendChild(r));
+}
+
+// assegna automaticamente i listener alle colonne
+document.querySelectorAll("thead th[data-index]").forEach(th => {
+  const idx = parseInt(th.dataset.index);
+  th.addEventListener("click", () => sortTableByIndex(idx, th));
+});
+</script>
+
+</body>
+</html>
